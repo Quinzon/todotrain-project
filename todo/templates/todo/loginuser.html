@@ -1,0 +1,29 @@
+{%  extends 'todo/base.html' %}
+
+{% block content %}
+    <div class="text-center">
+        <h1>Авторизация</h1>
+
+        <div>
+            <span style="color: red">{{ error }}</span>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-group">
+                        {% if field.label == "Username" %}
+                            <label for="id_username">Пользовательское имя:</label>
+                        {% elif field.label == "Password" %}
+                            <label for="id_password">Пароль:</label>
+                        {% endif %}
+                        <div>
+                            {{field}}
+                        </div>
+                    </div>
+                {% endfor %}
+            <button class="btn btn-outline-dark" type="submit">Войти</button>
+        </form>
+    </div>
+
+{% endblock %}

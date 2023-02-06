@@ -1,0 +1,35 @@
+{%  extends 'todo/base.html' %}
+
+{% block content %}
+    <div class="text-center">
+        <h1 style="color: red">Активные задачи</h1>
+    </div>
+    <div style="width: 500px;">
+        <ul class="list-group">
+            {% for todo in todos %}
+                <li class="list-group-item">
+                    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        <a href="{% url 'viewtodo' todo.id %}">
+                            <span class="h5 text-danger">
+                                {{ todo.title }}
+                            </span>
+                        </a>
+                    </div>
+                    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        <span>
+                            {{ todo.memo }}
+                        </span>
+                    </div>
+                    {% if todo.important %}
+                        <div style="display: inline-flex; position: absolute; top: 0px; right: 0px">
+                            <span class="badge badge-danger " style="background-color: red">Важно</span>
+                        </div>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+
+{% endblock %}
+

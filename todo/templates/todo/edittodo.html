@@ -1,0 +1,28 @@
+{%  extends 'todo/base.html' %}
+
+{% block content %}
+    <div class="text-center">
+        <h1>Редактировать</h1>
+
+        <h2>{{ error }}</h2>
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    {% if field.label == "Title" %}
+                        <label for="id_title">Название:</label>
+                        <div>{{ field }}</div>
+                    {% elif field.label == "Memo" %}
+                        <label for="id_memo">Описание:</label>
+                        <div>{{ field }}</div>
+                    {% elif field.label == "Important" %}
+                        <label for="id_important">Важно:</label>
+                        {{ field }}
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button class="btn btn-outline-dark" type="submit">Сохранить</button>
+        </form>
+    </div>
+
+{% endblock %}

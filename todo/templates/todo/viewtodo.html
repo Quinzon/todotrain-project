@@ -1,0 +1,57 @@
+{%  extends 'todo/base.html' %}
+
+{% block content %}
+
+    <div class="" style="width: 500px">
+        <div class="">
+            <div class="card" style="margin-top: 20px">
+                <div class="card-header container-fluid">
+                    <div class="text-center" style=" text-align: center;">
+                        <span class="h4">
+                            {{ todo.title }}
+                        </span>
+                    </div>
+                    {% if todo.important %}
+                        <div style="display: inline-flex; position: absolute; top: 0px; right: 0px">
+                            <span class="badge badge-danger " style="background-color: red">Важно</span>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <span>{{ todo.memo }}</span>
+                </div>
+                <div class="card-footer">
+                    <span>{{ todo.created }}</span>
+                    {% if todo.datecompleted %}
+                        <span style="color: #28a745"> - {{ todo.datecompleted }}</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="margin-top: 20px; width: 500px;">
+        <div class="row">
+            <div class="col-2">
+                <form method="post" action="{% url 'deletetodo' todo.id %}">
+                    {% csrf_token %}
+                    <button class="btn btn-danger" style="background-color: red" type="submit">Удалить</button>
+                </form>
+            </div>
+            {% if not todo.datecompleted %}
+                <div class="col-7">
+                    <form method="get" action="{% url 'edittodo' todo.id %}">
+                        {% csrf_token %}
+                        <button class="btn btn-dark" type="submit">Редактировать</button>
+                    </form>
+                </div>
+                <div class="col-1">
+                    <form method="post" action="{% url 'completetodo' todo.id %}">
+                        {% csrf_token %}
+                        <button class="btn btn-success" type="submit">Завершить</button>
+                    </form>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

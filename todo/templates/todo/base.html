@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        {% load static %}
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-light navbar-expand" style="background-color: red">
+                <a href="{% url 'home' %}">
+                    <img src="{% static 'todo/Logo-train.png' %}" style="max-height: 40px;" alt="">
+                </a>
+                <div class="navbar-brand">
+                    <a href="{% url 'home' %}" class="nav-link">
+                        <span class="text-light">Too Doo LIST</span>
+                    </a>
+                </div>
+                {% if user.is_authenticated %}
+                    <div class="navbar-collapse collapse">
+                        <ul class="navbar-nav mr-auto">
+                            <li>
+                                <a class="nav-link text-light" href="{% url 'createtodo' %}">Создать</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-light" href="{% url 'currenttodos' %}">Активные</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-light" href="{% url 'completedtodos' %}">Завершенные</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="" >
+                        <form action="{% url 'logoutuser' %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-dark text-light">{{ user.username }} | ВЫХОД</button>
+                        </form>
+                    </div>
+                {% else %}
+                    <div class="navbar-collapse collapse"></div>
+                    <div>
+                        <ul class="navbar-nav mr-auto">
+                            <li>
+                                <a class="nav-link text-light" href="{% url 'loginuser' %}">Вход</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-light" href="{% url 'signupuser' %}">Регистрация</a>
+                            </li>
+                        </ul>
+                    </div>
+                {%  endif %}
+            </nav>
+        </header>
+        <main class="row">
+            <div class="vw-50 mx-auto">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </main>
+    </body>
+</html>
+
+
+
